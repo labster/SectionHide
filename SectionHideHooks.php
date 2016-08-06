@@ -15,8 +15,8 @@ class SectionHideHooks
                 global $wgSectionHideopenbracket, $wgSectionHideclosebracket, $wgSectionHideb4title;
                 if ($showEditLinks && $section > 0)
                         {
-                        $hidetext = wfMsg( 'sectionhide-hide' );
-                        $showtext = wfMsg( 'sectionhide-show' );
+                        $hidetext = wfMessage( 'sectionhide-hide' )->text();
+                        $showtext = wfMessage( 'sectionhide-show' )->text();
                         $initialtext = $hidetext;
                         if ($wgSectionHideUseImages != 0)
                                 {
@@ -96,7 +96,7 @@ class SectionHideHooks
                                 // insert a section zero opening div before the first section heading
                                 $text = insertAtLoc($text, '<div class="sectionblocks" id="sectionblock0">', $matches[0][($wgSectionHideShowtop-1)][1]);
                                 $text = '<p><span class="visibilitytoggle">[<a href="#" onclick="toggleSectionVisibility(this, 0,'."'"
-                                        .wfMsg( 'sectionhide-showall' )."','".wfMsg( 'sectionhide-hideall' )."'".')">'.wfMsg( 'sectionhide-hideall' )
+                                        .wfMessage( 'sectionhide-showall' )->text()."','".wfMessage( 'sectionhide-hideall' )->text()."'".')">'.wfMessage( 'sectionhide-hideall' )->text()
                                         .'</a>]</span></p>'
                                         .$text
                                         .'</div><!-- id="sectionblock0" -->';
@@ -104,7 +104,7 @@ class SectionHideHooks
                             elseif ( $wgSectionHideShowtop == 0 )
                                 {
                                 $text = '<p><span class="visibilitytoggle">[<a href="#" onclick="toggleSectionVisibility(this, 0,'."'"
-                                        .wfMsg( 'sectionhide-showall' )."','".wfMsg( 'sectionhide-hideall' )."'".')">'.wfMsg( 'sectionhide-hideall' )
+                                        .wfMessage( 'sectionhide-showall' )->text()."','".wfMessage( 'sectionhide-hideall' )->text()."'".')">'.wfMessage( 'sectionhide-hideall' )->text()
                                         .'</a>]</span></p><div class="sectionblocks" id="sectionblock0">'
                                         .$text
                                         .'</div><!-- id="sectionblock0" -->';
