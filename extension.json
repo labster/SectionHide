@@ -1,0 +1,26 @@
+{
+	"name": "SectionHide",
+	"author": "Simon Oliver",
+	"url": "//mediawiki.org/wiki/Extension:SectionHide",
+	"descriptionmsg": "sectionhide-desc",
+	"ExtensionMessagesFiles": {
+		"SectionHideAlias": "SectionHide.alias.php"
+	},
+	"MessagesDirs": {
+		"SectionHide": [
+			"i18n"
+		]
+	},
+	"AutoloadClasses": {
+		"SectionHideHooks": "SectionHideHooks.php"
+	},
+	"Hooks": {
+		"ParserAfterParse": [
+			"SectionHideHooks::onParserAfterParse"
+		],
+		"ParserSectionCreate": [
+			"SectionHideHooks::onParserSectionCreate"
+		]
+	},
+	"manifest_version": 1
+}

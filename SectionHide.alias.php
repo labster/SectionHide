@@ -6,11 +6,11 @@
  * @ingroup Extensions
  */
 
-$aliases = array();
+$specialPageAliases = array();
 
 /** English
  * @author Simon Oliver (Hoggle42)
  */
-$aliases['en'] = array(
+$specialPageAliases['en'] = array(
 	'SectionHide' => array( 'SectionHide' ),
 );
