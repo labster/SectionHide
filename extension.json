@@ -15,12 +15,26 @@
 		"SectionHideHooks": "SectionHideHooks.php"
 	},
 	"Hooks": {
+		"BeforePageDisplay": [
+			"SectionHideHooks::onBeforePageDisplay"
+		],
 		"ParserAfterParse": [
 			"SectionHideHooks::onParserAfterParse"
 		],
 		"ParserSectionCreate": [
 			"SectionHideHooks::onParserSectionCreate"
 		]
+	},
+	"ResourceModules": {
+		"ext.sectionHide": {
+			"scripts": [
+				"sectionhide.js"
+			]
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath: "resources",
+		"removeExtPath": "SectionHide/resources"
 	},
 	"manifest_version": 1
 }

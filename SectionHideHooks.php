@@ -9,6 +9,11 @@
 # hooks class
 class SectionHideHooks
         {
+	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
+		$out->addModules( 'ext.sectionHide' );
+		return true;
+	}
+
         public static function onParserSectionCreate( $parser, $section, &$sectionContent, $showEditLinks )
                 {
                 global $wgSectionHideUseImages, $wgSectionHideUseImagesOnly, $wgSectionHideHideImage, $wgSectionHideShowImage;
