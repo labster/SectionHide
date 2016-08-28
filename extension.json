@@ -15,9 +15,6 @@
 		"SectionHideHooks": "SectionHideHooks.php"
 	},
 	"Hooks": {
-		"BeforePageDisplay": [
-			"SectionHideHooks::onBeforePageDisplay"
-		],
 		"ParserAfterParse": [
 			"SectionHideHooks::onParserAfterParse"
 		],

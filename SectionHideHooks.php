@@ -9,15 +9,13 @@
 # hooks class
 class SectionHideHooks
         {
-	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
-		$out->addModules( 'ext.sectionHide' );
-		return true;
-	}
-
-        public static function onParserSectionCreate( $parser, $section, &$sectionContent, $showEditLinks )
+        public static function onParserSectionCreate( $parser, $section, &$sectionContent, $showEditLinks, OutputPage &$out )
                 {
                 global $wgSectionHideUseImages, $wgSectionHideUseImagesOnly, $wgSectionHideHideImage, $wgSectionHideShowImage;
                 global $wgSectionHideopenbracket, $wgSectionHideclosebracket, $wgSectionHideb4title;
+
+		$out->addModules( 'ext.sectionHide' );
+
                 if ($showEditLinks && $section > 0)
                         {
                         $hidetext = wfMessage( 'sectionhide-hide' )->text();
