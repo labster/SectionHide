@@ -33,7 +33,7 @@
 		}
 	},
 	"ResourceFileModulePaths": {
-		"localBasePath: "resources",
+		"localBasePath": "resources",
 		"removeExtPath": "SectionHide/resources"
 	},
 	"manifest_version": 1
