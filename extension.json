@@ -18,14 +18,14 @@
 		"BeforePageDisplay": [
 			"SectionHideHooks::onBeforePageDisplay"
 		],
-		"ParserAfterParse": [
-			"SectionHideHooks::onParserAfterParse"
-		],
 		"ParserSectionCreate": [
 			"SectionHideHooks::onParserSectionCreate"
 		],
 		"SkinEditSectionLinks": [
 			"SectionHideHooks::onSkinEditSectionLinks"
+		],
+		"SkinTemplateOutputPageBeforeExec": [
+			"SectionHideHooks::onSkinTemplateOutputPageBeforeExec"
 		]
 	},
 	"ResourceModules": {
