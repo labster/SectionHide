@@ -23,7 +23,10 @@
 		],
 		"ParserSectionCreate": [
 			"SectionHideHooks::onParserSectionCreate"
-		]
+		],
+		"SkinEditSectionLinks": [
+		    "SectionHideHooks::onSkinEditSectionLinks"
+		],
 	},
 	"ResourceModules": {
 		"ext.sectionHide": {
