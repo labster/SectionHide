@@ -14,73 +14,60 @@ class SectionHideHooks {
 	}
 
     public static function onParserSectionCreate( $parser, $section, &$sectionContent, $showEditLinks ) {
-        global $wgSectionHideUseImages, $wgSectionHideUseImagesOnly, $wgSectionHideHideImage, $wgSectionHideShowImage;
-        global $wgSectionHideopenbracket, $wgSectionHideclosebracket, $wgSectionHideb4title;
+        global $wgSectionHideImages, $wgSectionHideb4title;
         
-        
-        if ($showEditLinks && $section > 0) {
-            $hidetext = wfMessage( 'sectionhide-hide' )->text();
-            $showtext = wfMessage( 'sectionhide-show' )->text();
-            $initialtext = $hidetext;
-
-            if ($wgSectionHideUseImages != 0) {
-                if ($wgSectionHideUseImagesOnly == 0) {
-                    $initialtext = '<img src="'.$wgSectionHideHideImage.'">'.$hidetext;
-                    $hidetext = $wgSectionHideHideImage.':'.$hidetext;
-                    $showtext = $wgSectionHideShowImage.':'.$showtext;
-                }
-                else {
-                        $initialtext = '<img src="'.$wgSectionHideHideImage.'">';
-                        $hidetext = $wgSectionHideHideImage.':';
-                        $showtext = $wgSectionHideShowImage.':';
-                }      
-            }
-                
-            //"<span class='visibilitytoggle' data-show-text=''>"
-
-            $divstart = '<div class="sectionblocks" id="sectionblock'.$section.'">';
-            $divend = '</div><!-- id="sectionblock'.$section.'" -->';
-            
-            if ($wgSectionHideb4title == 1) {
-                $hidelink = '<span class="visibilitytoggle">'.$wgSectionHideopenbracket.'<a href="#" onclick="toggleSectionVisibility(this, '.$section.", '".$showtext."','".$hidetext."'".');">'.$initialtext.'</a>'.$wgSectionHideclosebracket.'</span>';
-                $sectionContent = preg_replace( '/<h[2-6]>/', "$0$hidelink", $sectionContent);
-                $sectionContent = preg_replace( '/<\/h[2-6]>/', "$0\n$divstart\n", $sectionContent);
-            }
-            else {
-                $hidelink = '<span class="mw-editsection visibilitytoggle">'.$wgSectionHideopenbracket.'<a href="#" onclick="toggleSectionVisibility(this, '.$section.", '".$showtext."','".$hidetext."'".');">'.$initialtext.'</a>'.$wgSectionHideclosebracket.'</span>';
-                $sectionContent = preg_replace( '/<\/h[2-6]>/', "$hidelink$0\n$divstart\n", $sectionContent);
-            }
-            $sectionContent = $sectionContent."\n$divend\n";                               
+        if ($section <= 0 || !$showEditLinks) {
+                return true;
         }
+
+        $headerLevel = (int) substr($sectionContent, 2, 1 );
+
+        if ($wgSectionHideImages) {
+            $img = Xml::Element( 'img', [
+                'class'     => "sectionhide-image",
+                'src'       => $wgSectionHideImages['hide'],
+                'data-hide' => $wgSectionHideImages['hide'],
+                'data-show' => $wgSectionHideImages['show']
+            ]);
+            // Right after the very first <h*> tag
+            if ($wgSectionHideb4title) {
+                preg_replace(">\K", $img, $sectionContent);
+            }
+        }
+
+        $sectionContent = preg_replace( '/<\/h[2-6]>\K/', '<div class="sh-section">', $sectionContent);
+        $sectionContent = Html::Rawelement("div",
+                [ 'class' => "sectionblock blocklevel".$headerLevel ],
+                $sectionContent . "</div>"
+        );
+
         return true;
     }
 
 
     public static function onSkinEditSectionLinks( $skin, $title, $section, $tooltip, &$links, $lang ) {
+        global $wgSectionHideHideText;
 
+        if ($wgSectionHideHideText) return true;
 
         $hidetext = wfMessage( 'sectionhide-hide' )->text();
         $showtext = wfMessage( 'sectionhide-show' )->text();
-
+        $titleF = $title->createFragmentTarget ( '#' );
 
         $links[] = [
-            'targetTitle' => $title,
+            'targetTitle' => $titleF,
             'text' => $hidetext,
             'attribs' => [
+                "class" => "sectionhidelink",
                 "data-sectionhide-show" => $showtext,
-                "data-sectionhide-hide" => $hidetext
+                "data-sectionhide-hide" => $hidetext,
+                "data-section" => $section,
+                "title" => "Hide this section",
+                "href" => "#"
                 ],
             'query' => array(),
             'options' => array(),
         ];
-//     &$links: Array containing all link detail arrays. Each link detail array should contain the following keys:
-// 
-//     targetTitle - Target Title object
-//     text - String for the text
-//     attribs - Array of attributes
-//     query - Array of query parameters to add to the URL
-//     options - Array of options for Linker::link
-
     }
 
 
