@@ -3,9 +3,6 @@
 	"author": "Brent Laabs",
 	"url": "//mediawiki.org/wiki/Extension:HideSection",
 	"descriptionmsg": "hidesection-desc",
-	"ExtensionMessagesFiles": {
-		"HideSectionAlias": "HideSection.alias.php"
-	},
 	"MessagesDirs": {
 		"HideSection": [
 			"i18n"
