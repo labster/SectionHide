@@ -15,10 +15,10 @@
 			$textlink.html( $textlink.data('hide') );
 		}
 		// Toggle image
-		if ( $imglink.attr('href') == $link.data('hide') ) {
-			$imglink.attr( 'href', $imglink.data('show') );
+		if ( $imglink.attr('src') == $link.data('hide') ) {
+			$imglink.attr( 'src', $imglink.data('show') );
 		} else {
-			$imglink.attr( 'href', $imglink.data('hide') );
+			$imglink.attr( 'src', $imglink.data('hide') );
 		}
 
 		// Toggle this div visibility
@@ -56,11 +56,11 @@
 		if ($show) {
 			$sections.show();
 			$textlink.html( $textlink.data('hide') );
-			$imglink.attr( 'href', $imglink.data('hide') );
+			$imglink.attr( 'src', $imglink.data('hide') );
 		} else {
 			$sections.hide();
 			$textlink.html( $textlink.data('show') );
-			$imglink.attr( 'href', $imglink.data('show') );
+			$imglink.attr( 'src', $imglink.data('show') );
 		}
 	}
 

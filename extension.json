@@ -32,6 +32,9 @@
 		"ext.sectionHide": {
 			"scripts": [
 				"sectionhide.js"
+			],
+			"styles": [
+				"sectionhide.css"
 			]
 		}
 	},

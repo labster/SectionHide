@@ -13,7 +13,7 @@ class SectionHideHooks {
 	}
 
     public static function onParserSectionCreate( $parser, $section, &$sectionContent, $showEditLinks ) {
-        global $wgSectionHideImages, $wgSectionHideb4title;
+        global $wgSectionHideImages;
         
         if ($section <= 0 || !$showEditLinks) {
                 return true;
@@ -21,6 +21,12 @@ class SectionHideHooks {
 
         $headerLevel = (int) substr($sectionContent, 2, 1 );
 
+	$wgSectionHideImages = [
+		"show" => "https://upload.wikimedia.org/wikipedia/commons/f/f7/Arrow-down-navmenu.png",
+		"hide" => "https://upload.wikimedia.org/wikipedia/commons/0/01/Arrow-up-navmenu.png"
+	];
+
+	
         if ($wgSectionHideImages) {
             $img = Xml::Element( 'img', [
                 'class'     => "sectionhide-image",
@@ -29,14 +35,18 @@ class SectionHideHooks {
                 'data-show' => $wgSectionHideImages['show']
             ]);
             // Right after the very first <h*> tag
-            if ($wgSectionHideb4title) {
-                preg_replace(">\K", $img, $sectionContent);
+            if (isset($wgSectionHideImages['location']) && $wgSectionHideImages['location'] == "end") {
+		$sectionContent = preg_replace('/(?=<\/h[2-6]\>)/', $img, $sectionContent, 1);
+	    }
+	    else {
+                $sectionContent = preg_replace('/>\K/', $img, $sectionContent, 1);
             }
+
         }
 	
 	// Insert the inner div around the section's contents so we can hide that
 	// And an outer div around the entire section for hierarchical hiding
-        $sectionContent = preg_replace( '/<\/h[2-6]>\K/', '<div class="sh-section">', $sectionContent);
+        $sectionContent = preg_replace( '/<\/h[2-6]>\K/', '<div class="sh-section">', $sectionContent, 1);
         $sectionContent = Html::Rawelement("div",
                 [ 'class' => "sh-block",  'data-level' => $headerLevel ],
                 $sectionContent . "</div>"
