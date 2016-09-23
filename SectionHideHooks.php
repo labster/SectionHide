@@ -38,7 +38,7 @@ class SectionHideHooks {
 	// And an outer div around the entire section for hierarchical hiding
         $sectionContent = preg_replace( '/<\/h[2-6]>\K/', '<div class="sh-section">', $sectionContent);
         $sectionContent = Html::Rawelement("div",
-                [ 'class' => "sectionblock blocklevel".$headerLevel ],
+                [ 'class' => "sh-block",  'data-level' => $headerLevel ],
                 $sectionContent . "</div>"
         );
 
@@ -59,9 +59,9 @@ class SectionHideHooks {
                 'targetTitle' => $title,
                 'text' => $hidetext,
                 'attribs' => [
-                    "class" => "sectionhidelink",
-                    "data-sectionhide-show" => $showtext,
-                    "data-sectionhide-hide" => $hidetext,
+                    "class" => "sectionhide-link",
+                    "data-show" => $showtext,
+                    "data-hide" => $hidetext,
                     "data-section" => $section,
                     "title" => "Hide this section",
                     ],
@@ -77,9 +77,9 @@ class SectionHideHooks {
                 'targetTitle' => $title,
                 'text' => $hideall,
                 'attribs' => [
-                    "class" => "sectionhidelink",
-                    "data-sectionhide-show" => $showall,
-                    "data-sectionhide-hide" => $hideall,
+                    "class" => "sectionhide-all",
+                    "data-show" => $showall,
+                    "data-hide" => $hideall,
                     "title" => "Hide all sections",
                     ],
                 'query' => array(),
@@ -95,9 +95,9 @@ class SectionHideHooks {
 	    $showall = wfMessage( 'sectionhide-showall' )->text();
 	    $hideall = wfMessage( 'sectionhide-hideall' )->text();
 	    $linkelem = Html::element('a', [
-                    "class" => "sectionhidelink",
-                    "data-sectionhide-show" => $showall,
-                    "data-sectionhide-hide" => $hideall,
+                    "class" => "sectionhide-all",
+                    "data-show" => $showall,
+                    "data-hide" => $hideall,
                     "title" => "Hide all sections",
 		    "href" => "#`"
                 ],
