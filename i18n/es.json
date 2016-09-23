@@ -4,10 +4,10 @@
 			"Arcane21"
 		]
 	},
-	"sectionhide": "Sección Ocultar",
-	"sectionhide-desc": "Proporciona un enlace mostrar/ocultar en las partidas de la sección",
-	"sectionhide-hide": "Ocultar",
-	"sectionhide-show": "Mostrar",
-	"sectionhide-hideall": "todos ocultar",
-	"sectionhide-showall": "todos mostrar"
+	"hidesection": "Sección Ocultar",
+	"hidesection-desc": "Proporciona un enlace mostrar/ocultar en las partidas de la sección",
+	"hidesection-hide": "Ocultar",
+	"hidesection-show": "Mostrar",
+	"hidesection-hideall": "todos ocultar",
+	"hidesection-showall": "todos mostrar"
 }

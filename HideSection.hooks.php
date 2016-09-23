@@ -1,19 +1,17 @@
 <?php
 /**
- * Body file for extension SectionHide.
- *
- * @file
+ * Hooks for extension HideSection.
  * @ingroup Extensions
  */
 
-class SectionHideHooks {
+class HideSectionHooks {
 	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
-		$out->addModules( 'ext.sectionHide' );
+		$out->addModules( 'ext.hideSection' );
 		return true;
 	}
 
     public static function onParserSectionCreate( $parser, $section, &$sectionContent, $showEditLinks ) {
-        global $wgSectionHideImages;
+        global $wgHideSectionImages;
         
         if ($section <= 0 || !$showEditLinks) {
                 return true;
@@ -21,21 +19,16 @@ class SectionHideHooks {
 
         $headerLevel = (int) substr($sectionContent, 2, 1 );
 
-	$wgSectionHideImages = [
-		"show" => "https://upload.wikimedia.org/wikipedia/commons/f/f7/Arrow-down-navmenu.png",
-		"hide" => "https://upload.wikimedia.org/wikipedia/commons/0/01/Arrow-up-navmenu.png"
-	];
-
-	
-        if ($wgSectionHideImages) {
+	// Add the image form
+        if ($wgHideSectionImages) {
             $img = Xml::Element( 'img', [
-                'class'     => "sectionhide-image",
-                'src'       => $wgSectionHideImages['hide'],
-                'data-hide' => $wgSectionHideImages['hide'],
-                'data-show' => $wgSectionHideImages['show']
+                'class'     => "hidesection-image",
+                'src'       => $wgHideSectionImages['hide'],
+                'data-hide' => $wgHideSectionImages['hide'],
+                'data-show' => $wgHideSectionImages['show']
             ]);
             // Right after the very first <h*> tag
-            if (isset($wgSectionHideImages['location']) && $wgSectionHideImages['location'] == "end") {
+            if (isset($wgHideSectionImages['location']) && $wgHideSectionImages['location'] == "end") {
 		$sectionContent = preg_replace('/(?=<\/h[2-6]\>)/', $img, $sectionContent, 1);
 	    }
 	    else {
@@ -46,9 +39,9 @@ class SectionHideHooks {
 	
 	// Insert the inner div around the section's contents so we can hide that
 	// And an outer div around the entire section for hierarchical hiding
-        $sectionContent = preg_replace( '/<\/h[2-6]>\K/', '<div class="sh-section">', $sectionContent, 1);
+        $sectionContent = preg_replace( '/<\/h[2-6]>\K/', '<div class="hs-section">', $sectionContent, 1);
         $sectionContent = Html::Rawelement("div",
-                [ 'class' => "sh-block",  'data-level' => $headerLevel ],
+                [ 'class' => "hs-block",  'data-level' => $headerLevel ],
                 $sectionContent . "</div>"
         );
 
@@ -57,19 +50,19 @@ class SectionHideHooks {
 
 
     public static function onSkinEditSectionLinks( $skin, $title, $section, $tooltip, &$links, $lang ) {
-        global $wgSectionHideHideText;
+        global $wgHideSectionHideText;
 
-        if ($wgSectionHideHideText) return true;
+        if ($wgHideSectionHideText) return true;
 
-        $hidetext = wfMessage( 'sectionhide-hide' )->text();
-        $showtext = wfMessage( 'sectionhide-show' )->text();
+        $hidetext = wfMessage( 'hidesection-hide' )->text();
+        $showtext = wfMessage( 'hidesection-show' )->text();
 
 	if ($section !== 0) {
             $links[] = [
                 'targetTitle' => $title,
                 'text' => $hidetext,
                 'attribs' => [
-                    "class" => "sectionhide-link",
+                    "class" => "hidesection-link",
                     "data-show" => $showtext,
                     "data-hide" => $hidetext,
                     "data-section" => $section,
@@ -81,13 +74,13 @@ class SectionHideHooks {
         }
 
 	if ($section == 1) {
-	    $showall = wfMessage( 'sectionhide-showall' )->text();
-	    $hideall = wfMessage( 'sectionhide-hideall' )->text();
+	    $showall = wfMessage( 'hidesection-showall' )->text();
+	    $hideall = wfMessage( 'hidesection-hideall' )->text();
             $links[] = [
                 'targetTitle' => $title,
                 'text' => $hideall,
                 'attribs' => [
-                    "class" => "sectionhide-all",
+                    "class" => "hidesection-all",
                     "data-show" => $showall,
                     "data-hide" => $hideall,
                     "title" => "Hide all sections",
@@ -100,12 +93,13 @@ class SectionHideHooks {
     }
 
     public static function onSkinTemplateOutputPageBeforeExec ( &$skin, &$template ) {
-	global $wgSectionHideShowtop;
-	if (1) {
-	    $showall = wfMessage( 'sectionhide-showall' )->text();
-	    $hideall = wfMessage( 'sectionhide-hideall' )->text();
+	global $wgHideSectionTitleLink;
+
+	if ($wgHideSectionTitleLink) {
+	    $showall = wfMessage( 'hidesection-showall' )->text();
+	    $hideall = wfMessage( 'hidesection-hideall' )->text();
 	    $linkelem = Html::element('a', [
-                    "class" => "sectionhide-all",
+                    "class" => "hidesection-all",
                     "data-show" => $showall,
                     "data-hide" => $hideall,
                     "title" => "Hide all sections",
@@ -114,15 +108,12 @@ class SectionHideHooks {
 		$hideall
 	    );
 	    $hideelem = Html::Rawelement('span',
-		 [ 'class' => 'sectionhide-head' ],
+		 [ 'class' => 'hidesection-head' ],
 		'[' . $linkelem . ']' );
 
 	    $template->data['title'] .= $hideelem;
 	}
 	return true;
     }
-
-
-} # end of SectionHideHooks class
-
+}
 

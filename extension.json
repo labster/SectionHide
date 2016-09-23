@@ -1,46 +1,46 @@
 {
-	"name": "SectionHide",
-	"author": "Simon Oliver",
-	"url": "//mediawiki.org/wiki/Extension:SectionHide",
-	"descriptionmsg": "sectionhide-desc",
+	"name": "HideSection",
+	"author": "Brent Laabs",
+	"url": "//mediawiki.org/wiki/Extension:HideSection",
+	"descriptionmsg": "hidesection-desc",
 	"ExtensionMessagesFiles": {
-		"SectionHideAlias": "SectionHide.alias.php"
+		"HideSectionAlias": "HideSection.alias.php"
 	},
 	"MessagesDirs": {
-		"SectionHide": [
+		"HideSection": [
 			"i18n"
 		]
 	},
 	"AutoloadClasses": {
-		"SectionHideHooks": "SectionHideHooks.php"
+		"HideSectionHooks": "HideSection.hooks.php"
 	},
 	"Hooks": {
 		"BeforePageDisplay": [
-			"SectionHideHooks::onBeforePageDisplay"
+			"HideSectionHooks::onBeforePageDisplay"
 		],
 		"ParserSectionCreate": [
-			"SectionHideHooks::onParserSectionCreate"
+			"HideSectionHooks::onParserSectionCreate"
 		],
 		"SkinEditSectionLinks": [
-			"SectionHideHooks::onSkinEditSectionLinks"
+			"HideSectionHooks::onSkinEditSectionLinks"
 		],
 		"SkinTemplateOutputPageBeforeExec": [
-			"SectionHideHooks::onSkinTemplateOutputPageBeforeExec"
+			"HideSectionHooks::onSkinTemplateOutputPageBeforeExec"
 		]
 	},
 	"ResourceModules": {
-		"ext.sectionHide": {
+		"ext.hideSection": {
 			"scripts": [
-				"sectionhide.js"
+				"ext.hidesection.js"
 			],
 			"styles": [
-				"sectionhide.css"
+				"ext.hidesection.css"
 			]
 		}
 	},
 	"ResourceFileModulePaths": {
 		"localBasePath": "resources",
-		"removeExtPath": "SectionHide/resources"
+		"removeExtPath": "HideSection/resources"
 	},
 	"manifest_version": 1
 }

@@ -5,9 +5,9 @@
 		e.preventDefault();
 
 		var $link = $( this );
-		var $this_block = $link.parents('.sh-block');
-		var $textlink = $link.attr('class') == "sectionhide-link"  ? $link : $this_block.find('.sectionhide-link');
-		var $imglink  = $link.attr('class') == "sectionhide-image" ? $link : $this_block.children('.sectionhide-image');
+		var $this_block = $link.parents('.hs-block');
+		var $textlink = $link.attr('class') == "hidesection-link"  ? $link : $this_block.find('.hidesection-link');
+		var $imglink  = $link.attr('class') == "hidesection-image" ? $link : $this_block.children('.hidesection-image');
 		// Toggle text
 		if ( $textlink.html() == $link.data('hide') ) {
 			$textlink.html( $textlink.data('show') );
@@ -22,11 +22,11 @@
 		}
 
 		// Toggle this div visibility
-		$this_block.children('.sh-section').toggle();
+		$this_block.children('.hs-section').toggle();
 
 		// Toggle divs under this hierarchy
 		var $level = $this_block.data('level');
-		var $next_blocks = $this_block.nextAll('.sh-block');
+		var $next_blocks = $this_block.nextAll('.hs-block');
 
 		$next_blocks.each( function( index, element ) {
 			var $block = $( element );
@@ -40,7 +40,7 @@
 	function hideall (e) {
 		e.preventDefault();
 
-		var $link = $( '.sectionhide-all' );
+		var $link = $( '.hidesection-all' );
 		// Toggle text
 		var $show = 0;
 		if ( $link.html() == $link.data('hide') ) {
@@ -50,9 +50,9 @@
 			$show = 1;
 		}
 
-		var $sections = $('.sh-block, .sh-section').not("[data-level='2']");
-		var $textlink = $(".sectionhide-link");
-		var $imglink  = $(".sectionhide-image");
+		var $sections = $('.hs-block, .hs-section').not("[data-level='2']");
+		var $textlink = $(".hidesection-link");
+		var $imglink  = $(".hidesection-image");
 		if ($show) {
 			$sections.show();
 			$textlink.html( $textlink.data('hide') );
@@ -65,7 +65,7 @@
 	}
 
 	mw.hook( 'wikipage.content' ).add( function () {
-		$('.sectionhide-link, .sectionhide-image').click( hidesection );
-		$('.sectionhide-all').click( hideall );
+		$('.hidesection-link, .hidesection-image').click( hidesection );
+		$('.hidesection-all').click( hideall );
 	} );
 }( jQuery, mediaWiki ) );

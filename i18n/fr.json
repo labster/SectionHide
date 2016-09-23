@@ -4,10 +4,10 @@
 			"Arcane21"
 		]
 	},
-	"sectionhide": "Section Cacher",
-	"sectionhide-desc": "Fournit un lien de cacher/montrer sur les en-têtes de section",
-	"sectionhide-hide": "Cacher",
-	"sectionhide-show": "Motrer",
-	"sectionhide-hideall": "toute cacher",
-	"sectionhide-showall": "toute montrer"
+	"hidesection": "Section Cacher",
+	"hidesection-desc": "Fournit un lien de cacher/montrer sur les en-têtes de section",
+	"hidesection-hide": "Cacher",
+	"hidesection-show": "Motrer",
+	"hidesection-hideall": "toute cacher",
+	"hidesection-showall": "toute montrer"
 }
