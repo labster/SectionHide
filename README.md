@@ -16,12 +16,13 @@ header, any headers below it are automatically hidden.  Additionally, there is a
   location. Location "begin" is before the first text of the header, while "end"
   places it at the very end of the header.
 
+```php
 	$wgHideSectionImages = [
 		"show" => "https://upload.wikimedia.org/wikipedia/commons/f/f7/Arrow-down-navmenu.png",
 		"hide" => "https://upload.wikimedia.org/wikipedia/commons/0/01/Arrow-up-navmenu.png",
 		"location" => "begin" # or "end"
 	];
-
+```
 
 * $wgHideSectionHideText - If set to a true value, text show/hide links are
   disabled. Useful when *only* images are wanted.
